@@ -1,6 +1,8 @@
 {
-  "$schema": "node_modules/wrangler/config-schema.json",
-  "name": "hub",
-  "main": "src/index.js",
-  "compatibility_date": "2026-08-24"
+  "$schema":"node_modules/wrangler/config-schema.json",
+  "name":"hub",
+  "main":"src/index.js",
+  "compatibility_date":"2026-08-24",
+  "vars":{"APP_NAME":"MovieHub"},
+  "d1_databases":[{"binding":"DB","database_name":"moviehub-db","database_id":"REPLACE_WITH_D1_DATABASE_ID","migrations_dir":"migrations"}]
 }
