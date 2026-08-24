@@ -1,11 +1,14 @@
 CREATE TABLE IF NOT EXISTS items(
  id INTEGER PRIMARY KEY AUTOINCREMENT,
  title TEXT NOT NULL,
- type TEXT NOT NULL CHECK(type IN ('movie','series')),
+ type TEXT NOT NULL CHECK(type IN ('movie','series','channel')),
  poster TEXT DEFAULT '',
  description TEXT DEFAULT '',
  year INTEGER,
  category TEXT DEFAULT '',
+ country TEXT DEFAULT '',
+ language TEXT DEFAULT '',
+ enabled INTEGER DEFAULT 1,
  created_at TEXT DEFAULT CURRENT_TIMESTAMP
 );
 CREATE TABLE IF NOT EXISTS episodes(
@@ -33,5 +36,6 @@ CREATE TABLE IF NOT EXISTS sources(
 );
 CREATE INDEX IF NOT EXISTS idx_items_type ON items(type);
 CREATE INDEX IF NOT EXISTS idx_items_title ON items(title);
+CREATE INDEX IF NOT EXISTS idx_items_category ON items(category);
 CREATE INDEX IF NOT EXISTS idx_sources_item ON sources(item_id,priority);
 CREATE INDEX IF NOT EXISTS idx_sources_episode ON sources(episode_id,priority);
