@@ -1,0 +1,4 @@
+[
+ {"title":"Demo Movie","type":"movie","year":"2026","category":"Demo","description":"عنصر تجريبي","poster":"","url":"https://example.com/video.mp4"},
+ {"title":"Demo Series S01E01","type":"series","year":"2026","category":"Demo","description":"حلقة تجريبية","poster":"","url":"https://example.com/episode1.mp4"}
+]
