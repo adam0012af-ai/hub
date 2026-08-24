@@ -1,1 +1,50 @@
+name: Unpack MovieHub Panel
 
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'moviehub_panel_full.zip'
+
+permissions:
+  contents: write
+
+jobs:
+  unpack:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Verify package exists
+        run: |
+          test -f moviehub_panel_full.zip || { echo "moviehub_panel_full.zip not found"; exit 1; }
+          unzip -t moviehub_panel_full.zip
+
+      - name: Clean old project and unpack new version
+        shell: bash
+        run: |
+          set -e
+          shopt -s dotglob nullglob
+          for item in *; do
+            case "$item" in
+              .git|.github|moviehub_panel_full.zip) ;;
+              *) rm -rf -- "$item" ;;
+            esac
+          done
+          unzip -o moviehub_panel_full.zip -d .
+          rm -f moviehub_panel_full.zip
+
+      - name: Commit extracted project
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          if git diff --cached --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "Deploy MovieHub panel from package"
+            git push
+          fi
